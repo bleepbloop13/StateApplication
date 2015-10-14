@@ -5,35 +5,29 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.CheckBox;
+import android.widget.TextView;
 import android.view.View;
 import android.content.Intent;
 
-
-public class FrontPageActivity extends Activity {
-
-    private Button nextScreenButton;
-    private EditText nameText;
-    private EditText ageText;
-    private CheckBox isTiredBox;
-
+public class BackPageActivity extends Activity {
+    private TextView userText;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_front_page);
+        setContentView(R.layout.activity_back_page);
 
-        nextScreenButton = (Button) findViewById(R.id.submitButton);
-        nameText = (EditText) findViewById(R.id.nameText);
-        ageText = (EditText) findViewById(R.id.ageText);
-        isTiredBox = (CheckBox) findViewById(R.id.isTiredBox);
+        setupListeners();
+
+        backButton = (Button) findViewById(R.id.backButton);
+        userText = (TextView) findViewById(R.id.userText);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_front_page, menu);
+        getMenuInflater().inflate(R.menu.menu_back_page, menu);
         return true;
     }
 
@@ -50,20 +44,20 @@ public class FrontPageActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-
-
     }
 
     private void setupListeners()
     {
-        nextScreenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+        backButton.setOnClickListener(new View.OnClickListener()
+        {
+            //Close this screen and return.
             public void onClick(View clickView)
             {
-                //Open the new screen
-                Intent changeScreen = new Intent(clickView.getContext(), BackPageActivity.class);
-                startActivityForResult(changeScreen, 0);
+                Intent returnIntent = new Intent();
+                setResult(RESULT_OK, returnIntent);
+                finish();
             }
         });
     }
+
 }
